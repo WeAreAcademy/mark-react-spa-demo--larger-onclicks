@@ -59,6 +59,15 @@ function App() {
    *  which happens to return undefined.
    *
    * Therefore, it is a reference to undefined.
+   *
+   * Unlike the above console.logs, this one executes
+   *  as soon as the App renders (check this out in
+   *  your browser console). The others are patiently
+   *  waiting in functions to be triggered.
+   *
+   * By passing these functions to our button, we are
+   *  telling our button: "You're in charge of running
+   *  this function when you are clicked."
    */
   const myReturnValue = console.log("uh oh");
 
@@ -71,6 +80,33 @@ function App() {
       <button onClick={handleArrowFunctionBody}>Arrow function body</button>
       <button onClick={arrowFunctionImplicitReturn}>
         Arrow function implicit return
+      </button>
+      <button
+        // NB this is unorthodox, nobody does it - but it works,
+        //  because it's a function we're passing in
+        onClick={function () {
+          console.log("From anonymous function expression");
+        }}
+      >
+        Inline anonymous function expression
+      </button>
+      <button
+        onClick={() => {
+          console.log("From inline anonymous arrow function with body");
+        }}
+      >
+        Inline anonymous arrow function with body
+      </button>
+      {/*
+        Inline arrow function with implicit return is most common
+          for _simple_ onClicks, because it is the most concise
+          and fits easily on one line.
+
+        However, all the other ways of doing it work as well -
+          because they're all passing functions to the onClick.
+      */}
+      <button onClick={() => console.log("Most concise")}>
+        Inline anonymous arrow function, implicit return
       </button>
     </div>
   );
